@@ -1,19 +1,31 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+
+const NotFoundView = () => import('@/views/NotFound.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/dashboard/:name',
+    name: 'AdminDashboard',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
+    props: (route) => ({ name: route.params.name })
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/setup',
+    name: 'Setup',
+    beforeEnter (to) {
+      const clientId = process.env.VUE_APP_DISCORD_CLIENT_ID
+      const redirect = process.env.VUE_APP_API_BASE_URL + 'clients/create'
+      const state = 'admin'
+
+      if (to.query.code && to.query.state === state) return
+
+      window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&permissions=8&redirect_uri=${redirect}&scope=bot%20applications.commands&response_type=code&state=${state}`
+    },
+    component: () => import('@/views/Setup.vue')
+  },
+  {
+    path: '/:catchAll(.*)',
+    component: NotFoundView
   }
 ]
 

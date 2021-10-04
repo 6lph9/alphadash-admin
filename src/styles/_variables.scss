@@ -1,0 +1,38 @@
+$primary: #190f2a;
+$secondary: #2e1e47;
+$info: #7E51C7;
+$light: #f8f9fa; // oder #FFFFFF
+$dark: #17161F;
+$gray: #9EABB8;
+
+$success: #3e8d63;
+$warning: #945707;
+$danger: #d62518;
+$test: #0c0c0e;
+
+$bg-primary: #121212;
+$bg-secondary: #181818;
+$bg-secondary-light: #202020;
+$inp-bg: #202020;
+$toast-bg: #292929;
+
+$title: #FFFFFF;
+$text: #a8a8a8;
+$darker-text: hsl(0, 0%, 70%);
+
+$spotify-4: #DCDDDE;
+$test: #1b1b1b;
+
+
+$theme-colors: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark,
+  gray: $gray,
+  // add any additional color below
+);
