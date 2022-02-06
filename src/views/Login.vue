@@ -2,21 +2,15 @@
   <div class="root">
     <card>
       <div class="mb-3 mt-2 w-100">
-        <base-img
-          v-if="account.logo"
-          :logo="account.logo"
-          :name="account.name"
-          size="150"
-        />
-        <p v-if="account.name" class="title mt-4 mb-1 fs-5">
-          Welcome to {{ account.name }}!
+        <p class="title mt-4 mb-1 fs-5">
+          Welcome to your Admin-Dashboard!
         </p>
         <p class="text">
           Sign in to access the Dashboard.
         </p>
       </div>
 
-      <border-button class="my-3 title" :href="discordOauthUrl" :color="account.color">
+      <border-button class="my-3 title" :href="discordOauthUrl">
         <span>Login with </span><span>Discord</span>
       </border-button>
     </card>
@@ -32,20 +26,20 @@ import { useRoute } from 'vue-router'
 import Toast from '@/interfaces/toast.interface'
 import BorderButton from '@/components/BorderButton.vue'
 import Card from '@/components/base/Card.vue'
-import BaseImg from '@/components/base/BaseImg.vue'
 import ToastContainer from '@/components/ToastContainer.vue'
 
 export default defineComponent({
-  components: { BorderButton, Card, BaseImg, ToastContainer },
+  components: { BorderButton, Card, ToastContainer },
   setup () {
     console.log('now on login.vue')
+    console.log('this is process.env.VUE_APP_API_URL', process.env.VUE_APP_API_URL)
     const toasts = ref<Toast[]>([])
 
-    const clientId = process.env.VUE_APP_DISCORD_CLIENT_ID
-    const redirectURI = process.env.VUE_APP_API_BASE_URL + 'auth/discord'
+    const discordClientId = process.env.VUE_APP_DISCORD_CLIENT_ID
+    const redirectURI = process.env.VUE_APP_API_URL + '/auth/discord'
     const state = 'admin'
     const scope = 'identify%20email%20guilds%20guilds.join'
-    const discordOauthUrl = `https://discord.com/api/oauth2/authorize?prompt=none&client_id=${clientId}&redirect_uri=${redirectURI}&state=${state}&response_type=code&scope=${scope}`
+    const discordOauthUrl = `https://discord.com/api/oauth2/authorize?prompt=none&client_id=${discordClientId}&redirect_uri=${redirectURI}&state=${state}&response_type=code&scope=${scope}`
 
     onMounted(() => {
       const route = useRoute()

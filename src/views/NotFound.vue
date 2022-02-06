@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import BorderButton from '@/components/BorderButton.vue'
-import Card from '@/components/Card.vue'
+import Card from '@/components/base/Card.vue'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
